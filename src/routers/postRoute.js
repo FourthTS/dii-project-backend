@@ -21,5 +21,6 @@ const upload = multer({
 
 router.post('/add', auth, upload.single('file'), controller.newPost);
 router.get('/popular', auth, controller.getPopular);
+router.patch('/like', auth, controller.updateLike);
 
 export default router;

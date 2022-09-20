@@ -68,6 +68,7 @@ const getMostLike = async () => {
             lname: true,
           },
         },
+        likeBy: true,
         comment: true,
       },
     });
@@ -87,4 +88,33 @@ const getMostLike = async () => {
   }
 };
 
-export { addPost, getMostLike };
+const updateLikeService = async ({ postsId, num, username }) => {
+  try {
+    num == 1
+      ? await prisma.likeBy.create({
+          data: {
+            postsId,
+            username,
+          },
+        })
+      : await prisma.likeBy.delete({
+          where: {
+            postsId,
+            username,
+          },
+        });
+
+    return {
+      isOk: true,
+      msg: 'updated',
+    };
+  } catch (e) {
+    console.log(e);
+    return {
+      isOk: false,
+      msg: 'internal error on update like service',
+    };
+  }
+};
+
+export { addPost, getMostLike, updateLikeService };

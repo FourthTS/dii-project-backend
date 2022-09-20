@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx prisma generate && node dist/index.js",
+    "start": "npx prisma generate && node --experimental-specifier-resolution=node src/index",
     "dev": "nodemon --experimental-specifier-resolution=node src/index.js",
     "clean:dist": "rm -rf dist && mkdir dist",
     "build": "npm run clean:dist && babel --plugins @babel/plugin-transform-modules-commonjs src --out-dir dist",
@@ -46,7 +46,9 @@
   "devDependencies": {
     "nodemon": "^2.0.19"
   },
-  "type":"module"
-  
+  "plugins": [
+    "@babel/plugin-transform-modules-commonjs"
+  ],
+  "type": "module"
 }
 

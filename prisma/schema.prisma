@@ -36,9 +36,18 @@ model Posts {
   imageUrl    String?
   comment     Comments[]
   likeCount   Int        @default(0)
+  likeBy      LikeBy[]
   dateTime    DateTime   @default(now())
   Users       Users?     @relation(fields: [usersId], references: [username])
   usersId     String?
+}
+
+model LikeBy {
+  username String
+  Posts    Posts? @relation(fields: [postsId], references: [id])
+  postsId  String
+
+  @@id([username, postsId])
 }
 
 model Comments {
